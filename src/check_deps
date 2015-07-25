@@ -59,7 +59,7 @@ check_pkg()
   if [ $? -eq 0 ]; then
     # found package
     installed=$(ocamlfind query -long-format $name | grep 'version:' | sed 's/version://' | xargs)
-    version_ge "$version" "$installed"
+    version_ge "$installed" "$version"
     if [ $? -eq 0 ]; then
       return 0
     fi
@@ -67,21 +67,21 @@ check_pkg()
   return 1
 }
 
-check_Z3()
-{
-  check_pkg "Z3" "4.4.0.0"
-  if [ $? -eq 0 ]; then
-    options="-D PKG_Z3 $options"
-  fi
-}
-
-check_mlbdd()
-{
-  check_pkg "mlbdd" "0.1"
-  if [ $? -eq 0 ]; then
-    options="-D PKG_MLBDD $options"
-  fi
-}
+#check_Z3()
+#{
+#  check_pkg "Z3" "4.4.0.0"
+#  if [ $? -eq 0 ]; then
+#    options="-D PKG_Z3 $options"
+#  fi
+#}
+#
+#check_mlbdd()
+#{
+#  check_pkg "mlbdd" "0.1"
+#  if [ $? -eq 0 ]; then
+#    options="-D PKG_MLBDD $options"
+#  fi
+#}
 
 while [ -n "$1" ] && [ -n "$2" ]; do
   check_pkg $1 $2

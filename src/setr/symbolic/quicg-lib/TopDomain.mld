@@ -1,0 +1,4 @@
+src/setr/symbolic/quicg-lib/TopDomain.cmo : \
+    src/setr/symbolic/quicg-lib/FormatHelp.cmo
+src/setr/symbolic/quicg-lib/TopDomain.cmx : \
+    src/setr/symbolic/quicg-lib/FormatHelp.cmx

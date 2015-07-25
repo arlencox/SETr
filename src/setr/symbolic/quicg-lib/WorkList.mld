@@ -1,0 +1,4 @@
+src/setr/symbolic/quicg-lib/WorkList.cmo : \
+    src/setr/symbolic/quicg-lib/Mapx.cmi
+src/setr/symbolic/quicg-lib/WorkList.cmx : \
+    src/setr/symbolic/quicg-lib/Mapx.cmx

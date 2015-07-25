@@ -1,6 +1,6 @@
 type var = string
 
-module L = QUICr.Logic.SymbolicSet
+module L = SETr.SymSing.Logic
 
 type t =
   | Skip

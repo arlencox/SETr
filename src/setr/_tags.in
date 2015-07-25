@@ -1,0 +1,21 @@
+<symbolic/SETr_Symbolic_Stats.*>: package(unix)
+
+#ifdef PKG_CUDD
+<symbolic/SETr_Symbolic_BDD_Cudd.*> : package(cudd)
+#endif
+
+#ifdef PKG_MLBDD
+<symbolic/SETr_Symbolic_BDD_MLBDD.*> : package(mlbdd)
+#endif
+
+#ifdef PKG_Z3
+<symbolic/SETr_Symbolic_QUICGLib.*> : package(Z3)
+<symbolic/quicg-lib/*> : for-pack(SETr_Symbolic_QUICGLib)
+<symbolic/quicg-lib/*> : package(Z3)
+<symbolic/SETr_Symbolic_SMT.*> : package(Z3)
+#endif
+
+"ds" : include
+"symbolic" : include
+"symsing" : include
+"." : include

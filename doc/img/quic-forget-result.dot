@@ -1,0 +1,15 @@
+digraph g {
+  bgcolor="transparent";
+  rankdir="LR";
+  // edge 3
+  u3[shape="point", width=0.01, height=0.01];
+  i3[shape="point", width=0.01, height=0.01];
+
+  X -> i3[arrowhead="none"];
+  Y -> i3[arrowhead="none"];
+  V -> i3[arrowhead="none"];
+  i3 -> u3[arrowhead="none"];
+  u3 -> Z;
+  u3 -> S;
+  u3 -> T;
+}

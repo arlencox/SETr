@@ -1,0 +1,8 @@
+src/setr/symbolic/quicg-lib/HyperGraphId.cmo : \
+    src/setr/symbolic/quicg-lib/Mapx.cmi \
+    src/setr/symbolic/quicg-lib/HyperGraph.cmi \
+    src/setr/symbolic/quicg-lib/HyperGraphId.cmi
+src/setr/symbolic/quicg-lib/HyperGraphId.cmx : \
+    src/setr/symbolic/quicg-lib/Mapx.cmx \
+    src/setr/symbolic/quicg-lib/HyperGraph.cmx \
+    src/setr/symbolic/quicg-lib/HyperGraphId.cmi

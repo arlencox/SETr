@@ -1,12 +1,7 @@
 module I = SDSL.Interp
 module A = AST
 
-module Make(D: QUICr.I
-            with type sym = int
-             and type cnstr = int QUICr.Logic.SymbolicSet.t
-             and type output = int QUICr.Logic.SymbolicSet.t
-             and type query = int QUICr.Logic.SymbolicSet.q)
-= struct
+module Make(D: SETr.SymSing.Interface.S) = struct
 
   module ID = I.Make(D)
 
@@ -46,7 +41,7 @@ module Make(D: QUICr.I
     | A.Forget (l, s) ->
       D.forget ctx l (get s)
     | A.Rename (r, s) ->
-      D.rename_symbols ctx (QUICr.Rename.of_assoc_list r) (get s)
+      D.rename_symbols ctx (SETr.Rename.of_assoc_list r) (get s)
     in
     if !I.print_step then ID.print_state_raw ctx Format.pp_print_int d;
     d

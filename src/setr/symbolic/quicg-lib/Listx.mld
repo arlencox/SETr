@@ -1,0 +1,4 @@
+src/setr/symbolic/quicg-lib/Listx.cmo : \
+    src/setr/symbolic/quicg-lib/Listx.cmi
+src/setr/symbolic/quicg-lib/Listx.cmx : \
+    src/setr/symbolic/quicg-lib/Listx.cmi

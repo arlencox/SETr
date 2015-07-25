@@ -1,4 +1,4 @@
-module L = QUICr.Logic.SymbolicSet
+module L = SETr.SymSing.Logic
 
 type s = string
 

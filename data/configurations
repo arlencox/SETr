@@ -1,17 +1,16 @@
--bdd-full -sing
--bdd-full -pack -sing
--bdd-full -eq -sing
--bdd-full -eq -pack -sing
--bdd-full -pack -eq -sing
-#-qbf depqbf -sing
--lin
--lin -eq
--lin -eq -sing
--quic -sing
--quic -eq -sing
--quic -pack -eq -sing
--quic -eq -pack -sing
--smt -sing
--smt -eq -sing
--smt -pack -eq -sing
--smt -eq -pack -sing
+-dom "sing(bdd-full)"
+-dom "sing(pack(bdd-full))"
+-dom "sing(eq(bdd-full))"
+-dom "sing(pack(eq(bdd-full)))"
+-dom "sing(eq(pack(bdd-full)))"
+-dom "lin"
+-dom "sing(quic)"
+-dom "sing(pack(quic))"
+-dom "sing(eq(quic))"
+-dom "sing(pack(eq(quic)))"
+-dom "sing(eq(pack(quic)))"
+-dom "sing(smt)"
+-dom "sing(pack(smt))"
+-dom "sing(eq(smt))"
+-dom "sing(pack(eq(smt)))"
+-dom "sing(eq(pack(smt)))"

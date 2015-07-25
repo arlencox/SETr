@@ -3,7 +3,7 @@ let arg_blank = ("", Arg.Unit (fun () -> ()), " ")
 
 let usage =
   "Usage: sdsl [options] [file]\n" ^
-  QUICr.help_string
+  SETr.help
 
 type ft =
   | FT_SDSL
@@ -56,8 +56,12 @@ let run () =
       Printf.fprintf stderr "%s\n\n%s%!" s (Arg.usage_string args usage);
       exit 1
   end;
-  
-  let module D = (val (QUICr.set_domain !dom_str)) in
+
+  let d = match SETr.get !dom_str with
+    | SETr.SymSing d -> d
+    | _ -> failwith "Domain type must be Symbolic with Singletons"
+  in
+  let module D = (val d) in
   let module I = SDSL.Interp.Make(D) in
   let module IT = STrace.Interp.Make(D) in
 

@@ -88,11 +88,11 @@ let args = [
   "-eval", Arg.Set opt_eval, " Report pass/fail for each assertion";
 ]
 
-module Make(D: QUICr.I
+module Make(D: SETr.Domain
             with type sym = int
-             and type cnstr = int QUICr.Logic.SymbolicSet.t
-             and type output = int QUICr.Logic.SymbolicSet.t
-             and type query = int QUICr.Logic.SymbolicSet.q)
+             and type cnstr = int SETr.SymSing.Logic.t
+             and type output = int SETr.SymSing.Logic.t
+             and type query = int SETr.SymSing.Logic.q)
 = struct
 
 let print_state_raw ctx pp_sym state =
@@ -188,7 +188,7 @@ let print_state_raw ctx pp_sym state =
           List.iter (fun (a,b) -> Format.printf " %s %s" a b) l
         end;
         let l = List.map (fun (a,b) -> (get_or_fresh a, get_or_fresh b)) l in
-        let state = D.rename_symbols ctx (QUICr.Rename.of_assoc_list l) state in
+        let state = D.rename_symbols ctx (SETr.Rename.of_assoc_list l) state in
         if !print_step then print_state ctx renv state;
         state
       | Seq (t1, t2) -> interpret (interpret state t1) t2
@@ -248,11 +248,11 @@ let print_state_raw ctx pp_sym state =
             invstate |>
             D.constrain ctx (L.In(vid', L.Diff(e, L.Var visit_id))) |>
             D.forget ctx [vid] |>
-            D.rename_symbols ctx (QUICr.Rename.singleton vid' vid) |>
+            D.rename_symbols ctx (SETr.Rename.singleton vid' vid) |>
             (fun st -> interpret st t) |>
             D.constrain ctx (L.Eq(L.Var visit_id', L.DisjUnion(L.Var visit_id, L.Sing vid))) |>
             D.forget ctx [visit_id] |>
-            D.rename_symbols ctx (QUICr.Rename.singleton visit_id' visit_id)
+            D.rename_symbols ctx (SETr.Rename.singleton visit_id' visit_id)
           in
 
           if !print_step then Format.printf "@]@,}";
@@ -290,7 +290,7 @@ let print_state_raw ctx pp_sym state =
             let oldid = Hashtbl.find env lhs in
             state |>
             D.forget ctx [oldid] |>
-            D.rename_symbols ctx (QUICr.Rename.singleton lid oldid) (*[lid,oldid]*) (*(fun id -> if id = lid then oldid else id)*)
+            D.rename_symbols ctx (SETr.Rename.singleton lid oldid) (*[lid,oldid]*) (*(fun id -> if id = lid then oldid else id)*)
           else state in
         if !print_step then print_state ctx renv state;
         state
@@ -304,7 +304,7 @@ let print_state_raw ctx pp_sym state =
             let oldid = Hashtbl.find env lhs in
             state |>
             D.forget ctx [oldid] |>
-            D.rename_symbols ctx (QUICr.Rename.singleton lid oldid) (*[lid,oldid]*) (*(fun id -> if id = lid then oldid else id)*)
+            D.rename_symbols ctx (SETr.Rename.singleton lid oldid) (*[lid,oldid]*) (*(fun id -> if id = lid then oldid else id)*)
           else state in
         if !print_step then print_state ctx renv state;
         state

@@ -1,0 +1,2 @@
+src/setr/symbolic/quicg-lib/Setx.cmo : src/setr/symbolic/quicg-lib/Setx.cmi
+src/setr/symbolic/quicg-lib/Setx.cmx : src/setr/symbolic/quicg-lib/Setx.cmi

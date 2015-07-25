@@ -1,0 +1,18 @@
+src/setr/symbolic/quicg-lib/SetConstraintGraph.cmo : \
+    src/setr/symbolic/quicg-lib/Z3HyperGraphMatch.cmi \
+    src/setr/symbolic/quicg-lib/WorkList.cmo \
+    src/setr/symbolic/quicg-lib/SetSym.cmi \
+    src/setr/symbolic/quicg-lib/QGInterface.cmo \
+    src/setr/symbolic/quicg-lib/Listx.cmi \
+    src/setr/symbolic/quicg-lib/HyperGraph.cmi \
+    src/setr/symbolic/quicg-lib/FormatHelp.cmo \
+    src/setr/symbolic/quicg-lib/BaseSym.cmi
+src/setr/symbolic/quicg-lib/SetConstraintGraph.cmx : \
+    src/setr/symbolic/quicg-lib/Z3HyperGraphMatch.cmx \
+    src/setr/symbolic/quicg-lib/WorkList.cmx \
+    src/setr/symbolic/quicg-lib/SetSym.cmx \
+    src/setr/symbolic/quicg-lib/QGInterface.cmx \
+    src/setr/symbolic/quicg-lib/Listx.cmx \
+    src/setr/symbolic/quicg-lib/HyperGraph.cmx \
+    src/setr/symbolic/quicg-lib/FormatHelp.cmx \
+    src/setr/symbolic/quicg-lib/BaseSym.cmx

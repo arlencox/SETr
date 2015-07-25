@@ -1,0 +1,2 @@
+src/setr/symbolic/quicg-lib/Z3HyperGraphMatch.cmi : \
+    src/setr/symbolic/quicg-lib/HyperGraph_sig.cmo

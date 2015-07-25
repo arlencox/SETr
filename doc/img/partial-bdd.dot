@@ -1,0 +1,8 @@
+digraph g {
+bgcolor="transparent";
+node[shape="box"];
+W -> f1[label="F", style="dashed"];
+W -> f2[label="T"];
+f1[label="[Z ∨ ¬X]"];
+f2[label="[(X ∨ Y) ∧ (¬Z ∨ X)]"];
+}

@@ -1,0 +1,4 @@
+src/setr/symbolic/quicg-lib/BaseSym.cmo : \
+    src/setr/symbolic/quicg-lib/BaseSym.cmi
+src/setr/symbolic/quicg-lib/BaseSym.cmx : \
+    src/setr/symbolic/quicg-lib/BaseSym.cmi

@@ -1,0 +1,10 @@
+src/setr/symbolic/quicg-lib/Commands.cmo : \
+    src/setr/symbolic/quicg-lib/Types.cmo \
+    src/setr/symbolic/quicg-lib/Setx.cmi \
+    src/setr/symbolic/quicg-lib/Const.cmo \
+    src/setr/symbolic/quicg-lib/Common.cmo
+src/setr/symbolic/quicg-lib/Commands.cmx : \
+    src/setr/symbolic/quicg-lib/Types.cmx \
+    src/setr/symbolic/quicg-lib/Setx.cmx \
+    src/setr/symbolic/quicg-lib/Const.cmx \
+    src/setr/symbolic/quicg-lib/Common.cmx

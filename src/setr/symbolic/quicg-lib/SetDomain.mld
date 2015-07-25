@@ -1,0 +1,22 @@
+src/setr/symbolic/quicg-lib/SetDomain.cmo : \
+    src/setr/symbolic/quicg-lib/Timeout.cmo \
+    src/setr/symbolic/quicg-lib/Setx.cmi \
+    src/setr/symbolic/quicg-lib/SetSym.cmi \
+    src/setr/symbolic/quicg-lib/SetConstraintGraph.cmo \
+    src/setr/symbolic/quicg-lib/QGInterface.cmo \
+    src/setr/symbolic/quicg-lib/Listx.cmi \
+    src/setr/symbolic/quicg-lib/FormatHelp.cmo \
+    src/setr/symbolic/quicg-lib/Common.cmo \
+    src/setr/symbolic/quicg-lib/Commands.cmo \
+    src/setr/symbolic/quicg-lib/BaseSym.cmi
+src/setr/symbolic/quicg-lib/SetDomain.cmx : \
+    src/setr/symbolic/quicg-lib/Timeout.cmx \
+    src/setr/symbolic/quicg-lib/Setx.cmx \
+    src/setr/symbolic/quicg-lib/SetSym.cmx \
+    src/setr/symbolic/quicg-lib/SetConstraintGraph.cmx \
+    src/setr/symbolic/quicg-lib/QGInterface.cmx \
+    src/setr/symbolic/quicg-lib/Listx.cmx \
+    src/setr/symbolic/quicg-lib/FormatHelp.cmx \
+    src/setr/symbolic/quicg-lib/Common.cmx \
+    src/setr/symbolic/quicg-lib/Commands.cmx \
+    src/setr/symbolic/quicg-lib/BaseSym.cmx

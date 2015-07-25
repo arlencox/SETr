@@ -1,0 +1,23 @@
+digraph g {
+  bgcolor="transparent";
+  rankdir="LR";
+  u1[shape="point", width=0.01, height=0.01];
+  i1[shape="point", width=0.01, height=0.01];
+  u2[shape="point", width=0.01, height=0.01];
+  i2[shape="point", width=0.01, height=0.01];
+
+  // edge 1
+  X -> i1[arrowhead="none"];
+  Y -> i1[arrowhead="none"];
+  i1 -> u1[arrowhead="none"];
+  u1 -> Z;
+  u1 -> W;
+
+  // edge 2
+  W -> i2[arrowhead="none"];
+  V -> i2[arrowhead="none"];
+  i2 -> u2[arrowhead="none"];
+  u2 -> S;
+  u2 -> T;
+
+}

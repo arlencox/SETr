@@ -39,7 +39,7 @@
 %left SQUIGGLE
 
 %{
-  module L = QUICr.Logic.SymbolicSet
+  module L = SETr.SymSing.Logic
 
 let mkif c t e =
   match c with

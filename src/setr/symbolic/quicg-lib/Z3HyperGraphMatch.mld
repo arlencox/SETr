@@ -1,0 +1,10 @@
+src/setr/symbolic/quicg-lib/Z3HyperGraphMatch.cmo : \
+    src/setr/symbolic/quicg-lib/Setx.cmi src/setr/symbolic/quicg-lib/Mapx.cmi \
+    src/setr/symbolic/quicg-lib/HyperGraph_sig.cmo \
+    src/setr/symbolic/quicg-lib/HyperGraph.cmi \
+    src/setr/symbolic/quicg-lib/Z3HyperGraphMatch.cmi
+src/setr/symbolic/quicg-lib/Z3HyperGraphMatch.cmx : \
+    src/setr/symbolic/quicg-lib/Setx.cmx src/setr/symbolic/quicg-lib/Mapx.cmx \
+    src/setr/symbolic/quicg-lib/HyperGraph_sig.cmx \
+    src/setr/symbolic/quicg-lib/HyperGraph.cmx \
+    src/setr/symbolic/quicg-lib/Z3HyperGraphMatch.cmi

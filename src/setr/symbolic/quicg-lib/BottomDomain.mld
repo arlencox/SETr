@@ -1,0 +1,6 @@
+src/setr/symbolic/quicg-lib/BottomDomain.cmo : \
+    src/setr/symbolic/quicg-lib/QGInterface.cmo \
+    src/setr/symbolic/quicg-lib/FormatHelp.cmo
+src/setr/symbolic/quicg-lib/BottomDomain.cmx : \
+    src/setr/symbolic/quicg-lib/QGInterface.cmx \
+    src/setr/symbolic/quicg-lib/FormatHelp.cmx

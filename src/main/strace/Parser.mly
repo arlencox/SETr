@@ -48,7 +48,7 @@
 %left SQUIGGLE
 
 %{
-  module L = QUICr.Logic.SymbolicSet
+  module L = SETr.SymSing.Logic
   open AST
 
 %}

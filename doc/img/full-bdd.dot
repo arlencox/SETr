@@ -1,0 +1,35 @@
+// ITE(W;ITE(X;Z;!Z^Y);!X)
+// !Z^Y = ITE(Y,!Z,F)
+
+// f1 = ite(W, f2, f3) = ITE(W;ITE(X;Z;!Z^Y);!X)
+// f2 = ite(X, f4, f5) = ITE(X;Z;!Z^Y)
+// f3 = ite(X, F, T) = !X
+// f4 = ite(Z, T, F) = Z
+// f5 = ite(Y, f6, F) = !Z^Y
+// f6 = ite(Z, F, T) = !Z
+
+digraph g {
+  bgcolor="transparent";
+  node[shape=box];
+  f1[label="W"];
+  {f2;f3; rank=same};
+  f2[label="X"];
+  f3[label="X"];
+  f5[label="Y"];
+  {f4;f6; rank=same};
+  f4[label="Z"];
+  f6[label="Z"];
+  f1 -> f2[label="T"];
+  f1 -> f3[label="F", style="dashed"];
+  f2 -> f4[label="T"];
+  f2 -> f5[label="F", style="dashed"];
+  f3 -> F[label="T"];
+  f3 -> T[label="F", style="dashed"];
+  f4 -> T[label="T"];
+  f4 -> F[label="F", style="dashed"];
+  f5 -> f6[label="T"];
+  f5 -> F[label="F", style="dashed"];
+  f6 -> F[label="T"];
+  f6 -> T[label="F", style="dashed"];
+
+}
