@@ -1,11 +1,17 @@
 #ifdef PKG_MLBDD
 #define DEP_BDD mlbdd
+#else
+#define DEP_BDD
 #endif
 #ifdef PKG_Z3
 #define DEP_Z3 Z3
+#else
+#define DEP_Z3
 #endif
 #ifdef PKG_CUDD
 #define DEP_CUDD cudd
+#else
+#define DEP_CUDD
 #endif
 name="setr"
 description="Abstract domain library for sets"

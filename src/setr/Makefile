@@ -9,6 +9,7 @@ TARGET=../../lib
 _build/SETr.cma _build/SETr.cmxa : _tags SETr.mllib META
 	ocamlbuild -use-ocamlfind $(FLAGS) SETr.cma SETr.cmxa
 	rm _tags
+	rm SETr.mllib
 	mkdir -p $(TARGET)
 	cp `ls _build/*.cmi` $(TARGET)
 	cp `ls _build/*/*.cmi` $(TARGET)

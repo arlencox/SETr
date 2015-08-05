@@ -5,8 +5,8 @@ all:
 
 example:
 	$(MAKE) -C src example
-	ln -s src/main/Main.native
-	ln -s src/main/Main.d.byte
+	ln -sf src/main/Main.native
+	ln -sf src/main/Main.d.byte
 
 clean:
 	$(MAKE) -C src clean
