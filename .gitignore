@@ -1,5 +1,2 @@
-_build
-Main.d.byte
-Main.native
-_tags
-QUICr.mllib
+src/setr/_build
+lib

@@ -83,6 +83,7 @@ check_pkg()
 #  fi
 #}
 
+
 while [ -n "$1" ] && [ -n "$2" ]; do
   check_pkg $1 $2
   if [ $? -eq 0 ]; then
@@ -91,4 +92,7 @@ while [ -n "$1" ] && [ -n "$2" ]; do
   fi
   shift 2
 done
-echo "$options"
+
+# get package version number
+version=$(sed -n 's/^version: "\([^"]*\)"/\1/p' ../../opam)
+echo "$options -D 'SETR_VERSION $version'"

@@ -15,7 +15,7 @@
 #endif
 name="setr"
 description="Abstract domain library for sets"
-version="0.1"
+version=STRINGIFY(SETR_VERSION)
 requires=STRINGIFY(DEP_BDD DEP_Z3 DEP_CUDD unix)
 archive(byte)="SETr.cma"
 archive(native)="SETr.cmxa"
