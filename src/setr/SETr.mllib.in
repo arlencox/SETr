@@ -40,5 +40,6 @@ ds/SETr_DS_Dequeue
 ds/SETr_DS_HMap
 ds/SETr_DS_HSet
 ds/SETr_DS_HashCons
+ds/SETr_DS_List
 ds/SETr_DS_PSet
 ds/SETr_DS_SetOfSets

@@ -1,7 +1,7 @@
 module type Domain = SETr_Interface.Domain
 module Rename = SETr_Rename
 (*module Select = SETr_Select*)
-(*module DS = SETr_DS*)
+module DS = SETr_DS
 module SymSing = SETr_SymSing
 module Symbolic = SETr_Symbolic
 

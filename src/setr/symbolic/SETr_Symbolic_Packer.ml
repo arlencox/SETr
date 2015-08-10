@@ -60,10 +60,10 @@ module Make (D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S = struct
     | Top ->
       Format.fprintf ff "true"
     | Dom t ->
-      Format.fprintf ff "@[<v 0>@[<h>[%a]@]" (Format.pp_print_list ~pp_sep:Format.pp_print_space pp_sym) (SymSets.reps t.pack);
+      Format.fprintf ff "@[<v 0>@[<h>[%a]@]" (SETr_DS_List.pp_print ~pp_sep:Format.pp_print_space pp_sym) (SymSets.reps t.pack);
       SymMap.iter (fun r d ->
           Format.fprintf ff "@,@[<v 2>%a: " pp_sym r;
-          Format.fprintf ff "[@[<h>%a@]]" (Format.pp_print_list ~pp_sep:Format.pp_print_space pp_sym) (SymSets.ESet.elements (SymSets.elements r t.pack));
+          Format.fprintf ff "[@[<h>%a@]]" (SETr_DS_List.pp_print ~pp_sep:Format.pp_print_space pp_sym) (SymSets.ESet.elements (SymSets.elements r t.pack));
           Format.fprintf ff "@,%a@]" (D.pp_print ctx pp_sym) d;
           (*D.pp_print pp_sym ff d*)
         ) t.doms;
@@ -73,7 +73,7 @@ module Make (D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S = struct
     List.fold_left (fun rs r -> SymSet.add r rs) SymSet.empty l
 
   let pp_set ff s =
-    Format.pp_print_list ~pp_sep:Format.pp_print_space Format.pp_print_int ff (SymSet.elements s)
+    SETr_DS_List.pp_print ~pp_sep:Format.pp_print_space Format.pp_print_int ff (SymSet.elements s)
 
   let check ?msg:msg ctx p =
     let pack_reps = set_of_list (SymSets.reps p.pack) in

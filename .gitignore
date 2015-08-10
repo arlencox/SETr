@@ -1,2 +1,5 @@
 src/setr/_build
+src/main/_build
+src/main/Main.d.byte
+src/main/Main.native
 lib

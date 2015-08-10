@@ -33,8 +33,8 @@ module Make(D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S = struct
     let s_subset_of_syms = SSet.subset syms t.s in
     if not s_subset_of_syms then begin
       Format.printf "s not subet of syms: %s@." msg;
-      Format.printf " s    = %a@." (Format.pp_print_list ~pp_sep:Format.pp_print_space Format.pp_print_int) (SSet.elements t.s);
-      Format.printf " syms = %a@." (Format.pp_print_list ~pp_sep:Format.pp_print_space Format.pp_print_int) (D.symbols ctx t.d);
+      Format.printf " s    = %a@." (SETr_DS_List.pp_print ~pp_sep:Format.pp_print_space Format.pp_print_int) (SSet.elements t.s);
+      Format.printf " syms = %a@." (SETr_DS_List.pp_print ~pp_sep:Format.pp_print_space Format.pp_print_int) (D.symbols ctx t.d);
     end;
     assert(s_subset_of_syms);
     assert(SSet.for_all (fun s ->
@@ -325,7 +325,7 @@ module Make(D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S = struct
     Format.fprintf ff "@[<v -7>";
     Format.fprintf ff "@[<hv 2>eqs:@ %a@]@," (L.pp pp_sym) (serialize_eq t L.True);
     Format.fprintf ff "@[<h>dom:@ %a@]@," (D.pp_print ctx pp_sym) t.d;
-    Format.fprintf ff "@[<h>sym:@ %a@]" (Format.pp_print_list ~pp_sep:Format.pp_print_space Format.pp_print_int) (SSet.elements t.s);
+    Format.fprintf ff "@[<h>sym:@ %a@]" (SETr_DS_List.pp_print ~pp_sep:Format.pp_print_space Format.pp_print_int) (SSet.elements t.s);
     Format.fprintf ff "@]"
 
   let pp_print ctx pp_sym ff t =

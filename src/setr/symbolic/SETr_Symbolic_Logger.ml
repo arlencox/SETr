@@ -126,7 +126,7 @@ module Make(L: L)(D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S
 
   let forget ctx syms t =
     Format.fprintf ctx.ff "@[<v 2>forget:@,";
-    Format.fprintf ctx.ff "syms: @[<h>%a@]@," (Format.pp_print_list Format.pp_print_int) syms;
+    Format.fprintf ctx.ff "syms: @[<h>%a@]@," (SETr_DS_List.pp_print Format.pp_print_int) syms;
     Format.fprintf ctx.ff "pre : %a@," (pp ctx) t;
     let res = D.forget ctx.ctx syms t in
     Format.fprintf ctx.ff "res: %a" (pp ctx) res;

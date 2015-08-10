@@ -111,7 +111,7 @@ module Make(L: L)(D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S = st
   let forget ctx syms t =
     let id = fresh_id ctx in
     Format.fprintf ctx.ff "let x%d = forget %a x%d@." id
-      (Format.pp_print_list ~pp_sep:(fun ff () -> Format.pp_print_string ff " ") Format.pp_print_int) syms
+      (SETr_DS_List.pp_print ~pp_sep:(fun ff () -> Format.pp_print_string ff " ") Format.pp_print_int) syms
       t.id;
     {t = D.forget ctx.ctx syms t.t; id}
 
@@ -119,7 +119,7 @@ module Make(L: L)(D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S = st
     let id = fresh_id ctx in
     let l = Rename.to_assoc_list map in
     Format.fprintf ctx.ff "let x%d = rename [%a] x%d@." id
-      (Format.pp_print_list ~pp_sep:(fun ff () -> Format.pp_print_string ff "; ") (fun ff (a,b) -> Format.fprintf ff "%d -> %d" a b)) l
+      (SETr_DS_List.pp_print ~pp_sep:(fun ff () -> Format.pp_print_string ff "; ") (fun ff (a,b) -> Format.fprintf ff "%d -> %d" a b)) l
       t.id;
     {t = D.rename_symbols ctx.ctx map t.t; id}
 

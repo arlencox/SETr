@@ -29,10 +29,10 @@ let pp_c ff = function
   | Join(s1,s2) -> Format.fprintf ff "join %s %s" s1 s2
   | Widening(s1,s2) -> Format.fprintf ff "widening %s %s" s1 s2
   | Meet(s1,s2) -> Format.fprintf ff "meet %s %s" s1 s2
-  | Forget(vs,s) -> Format.fprintf ff "forget @[<h>%a@] %s" (Format.pp_print_list ~pp_sep:Format.pp_print_space Format.pp_print_int) vs s
+  | Forget(vs,s) -> Format.fprintf ff "forget @[<h>%a@] %s" (SETr.DS.List.pp_print ~pp_sep:Format.pp_print_space Format.pp_print_int) vs s
   | Rename(rs,s) ->
     Format.fprintf ff "rename @[<h>[%a]@] %s"
-      (Format.pp_print_list ~pp_sep:(fun ff () -> Format.pp_print_string ff "; ") (fun ff (a,b) -> Format.fprintf ff "%d -> %d" a b)) rs
+      (SETr.DS.List.pp_print ~pp_sep:(fun ff () -> Format.pp_print_string ff "; ") (fun ff (a,b) -> Format.fprintf ff "%d -> %d" a b)) rs
       s
 
 let pp_p ff = function

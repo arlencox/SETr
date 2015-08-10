@@ -1,6 +1,6 @@
 opam-version: "1.2"
 name: "setr"
-version: "0.1"
+version: "0.1.1"
 maintainer: "Arlen Cox <arlencox@gmail.com>"
 authors: "Arlen Cox <arlencox@gmail.com>"
 homepage: "https://github.com/arlencox/SETr"
@@ -11,4 +11,4 @@ build: [make]
 install: [make "install"]
 remove: ["ocamlfind" "remove" "setr"]
 depends: [ "ocamlfind" {build} "cppo" {build} "mlbdd" ]
-available: [ ocaml-version >= "4.02" ]
+available: [ ocaml-version >= "4.01.0" ]
