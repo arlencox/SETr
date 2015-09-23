@@ -1,0 +1,34 @@
+// from jquery
+// jQuery.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
+//         class2type[ "[object " + name + "]" ] = name.toLowerCase();
+// });
+// 
+// // definition of jQuery.each is as follows:
+//  each: function( obj, callback, args ) {
+//         var value, i = 0, length = obj.length, isArray = isArraylike( obj );
+// 
+//         ...
+//         if ( isArray ) {
+//                 for ( ; i < length; i++ ) {
+//                         value = callback.call( obj[ i ], i, obj[ i ] );
+// 
+//                         if ( value === false ) {
+//                                 break;
+//                         }
+//                 }
+//         } else {
+//                 for ( i in obj ) {
+//                         value = callback.call( obj[ i ], i, obj[ i ] );
+// 
+//                         if ( value === false ) {
+//                                 break;
+//                         }
+//                 }
+//         }
+// }
+
+assume(class2type_p1 ^ class2type_p2 = {});
+for(name in s) {
+  class2type_p1 = class2type_p1 \ { "[object " + name + "]" };
+  class2type_p2 = class2type_p2 U { "[object " + name + "]" };
+}

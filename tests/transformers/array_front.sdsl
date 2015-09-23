@@ -1,0 +1,7 @@
+// synthetic example emulating array operation with objects
+r = {};
+for(x in s) {
+  if(x != "0") {
+    r = r U { stringminus(x,"1") };
+  }
+}

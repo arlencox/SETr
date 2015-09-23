@@ -1,0 +1,8 @@
+// vague approximation of what Joose does
+assume(p1 ^ p2 = {});
+for(x in s) {
+  p1 = p1 \ { "get" + Uppercase(x) };
+  p2 = p2 \ { "set" + Uppercase(x) };
+  p1 = p1 U { "get" + Uppercase(x) };
+  p2 = p2 U { "set" + Uppercase(x) };
+}
