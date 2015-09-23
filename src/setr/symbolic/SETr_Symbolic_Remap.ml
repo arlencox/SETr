@@ -148,12 +148,12 @@ module Make(D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S = struct
     let pp_sym ff s =
       pp_sym ff (in_to_out ctx s)
     in
-    D.pp_debug ctx.c pp_sym ff t
+    D.pp_print ctx.c pp_sym ff t
 
   let pp_debug ctx pp_sym ff t =
     let ss = ref DS.PSet.empty in
     
-    D.pp_print ctx.c (fun ff i ->
+    D.pp_debug ctx.c (fun ff i ->
         ss := DS.PSet.add i !ss;
         Format.fprintf ff "%%%d" i
       ) ff t;
