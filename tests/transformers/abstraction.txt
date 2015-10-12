@@ -1,0 +1,58 @@
+Constraints:
+
+  E1 = { f(x) | x in E2 } /\ bijective(f, S1, S2) /\ f = Some (code)
+  E1 = { f(x) | x in E2 } /\ bijective(f, S1, S2) /\ f = Top
+
+bijective()? Should this incorporate an approximation of an image
+
+Function abstraction:
+- bij or not, if so on which set;
+- domain ?approx;
+- image over-approximation.
+
+
+For example:
+  bijective(f, Z, Z) (not NaN)
+
+For array examples:
+  bijective(f,Zstring,Zstring)
+  Zstring = strings that denote integers
+
+For Joose_attributes:
+  not bijective (Uppercase)
+
+assume(p1 ^ p2 = {});
+for(x in s) {
+  p1 = p1 \ { "get" + Uppercase(x) };
+  p1 = p1 \ { "set" + Uppercase(x) };
+  p2 = p2 \ { "get" + Uppercase(x) };
+  p2 = p2 \ { "set" + Uppercase(x) };
+
+  p1 = p1 U { "get" + Uppercase(x) };
+  p2 = p2 U { "set" + Uppercase(x) };
+}
+
+for(x in s) {
+  r["get"+Uppercase(x)] = s[x];
+  r["set"+Uppercase(x)] = s[x];
+}
+
+  s = { "x", "y", "z" }
+
+For Jquery_class2type:
+  bijective(f,String,String)
+
+
+
+Need:
+  Abstraction for functions over sets.
+  [[Some code]] = [[code]]
+  [[Top]] = lambda x. y where y is fresh
+
+
+Functor CodeAbstraction
+  construct: 'a -> t
+  equality: t -> t -> t
+  biject: t -> bool * domain (domain ???)
+  domain: t -> (function domain) (set)
+  image: t -> (function domain) (set)
