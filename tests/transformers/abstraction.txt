@@ -56,3 +56,12 @@ Functor CodeAbstraction
   biject: t -> bool * domain (domain ???)
   domain: t -> (function domain) (set)
   image: t -> (function domain) (set)
+
+
+TODO:
+  (1) More examples
+    - JSAna
+    - Python tests
+    - ?
+    - Hash table verification?
+  (2) Start constructing domain
