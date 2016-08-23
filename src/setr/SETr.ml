@@ -4,6 +4,8 @@ module Rename = SETr_Rename
 module DS = SETr_DS
 module SymSing = SETr_SymSing
 module Symbolic = SETr_Symbolic
+module Cardinality = SETr_Cardinality
+module Numeric = SETr_Numeric
 
 
 type t = SETr_DomainBuilder.t =

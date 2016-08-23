@@ -25,6 +25,8 @@ t <- t[ which(t$Machine.ID == machine_id & t$Build.ID == build_id) , -c(1,2,3) ]
 # run averages
 run_time <- ddply(.data=t, c("Config", "Test"), summarise, Time = mean(Time), Pass = mean(Pass), Total = mean(Total))
 
+write.csv(run_time, file='sdsl_avg.csv')
+
 result <- ddply(.data=run_time, c("Config"), summarise, Time = sum(Time), Pass = sum(Pass), Total = sum(Total))
 print.data.frame(result)
 
@@ -63,6 +65,8 @@ run_time <- ddply(
     Bot.Pass = mean(Bot.Pass),
     Bot.Count = mean(Bot.Count)
 )
+
+write.csv(run_time, file='strace_avg.csv')
 
 result <- ddply(
     .data=run_time,

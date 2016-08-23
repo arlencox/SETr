@@ -6,6 +6,7 @@
 
 #ifdef PKG_MLBDD
 <symbolic/SETr_Symbolic_BDD_MLBDD.*> : package(mlbdd)
+<*> : package(mlbdd)
 #endif
 
 #ifdef PKG_Z3
@@ -18,4 +19,8 @@
 "ds" : include
 "symbolic" : include
 "symsing" : include
+"cardinality" : include
+"numeric" : include
 "." : include
+
+<SETr_js.*> : package(js_of_ocaml), package(js_of_ocaml.ppx), package(unix)

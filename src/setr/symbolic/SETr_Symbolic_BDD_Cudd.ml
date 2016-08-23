@@ -29,7 +29,7 @@ module Make(C: Config) : SETr_Symbolic_Interface.S = struct
   let init () =
     let man = Cudd.Man.make_d () in
     let reorder = match C.reorder with
-      | Some s -> Some (String.lowercase s)
+      | Some s -> Some s
       | None -> None
     in
     let reorder = match reorder with

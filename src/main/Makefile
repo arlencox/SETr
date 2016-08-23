@@ -6,7 +6,7 @@ MAKE_DIR=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 LIB_DIR=$(MAKE_DIR)/../../lib
 
 all: _tags
-	SETR_LIB=$(LIB_DIR) ocamlbuild -use-ocamlfind Main.d.byte Main.native
+	SETR_LIB=$(LIB_DIR) ocamlbuild -use-ocamlfind Main.d.byte Main.native Main.jar
 	rm -f _tags
 
 clean:

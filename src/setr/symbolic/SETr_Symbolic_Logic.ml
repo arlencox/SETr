@@ -93,17 +93,17 @@ let rec pp ?parse:(parse=false) pp_sym ff t =
   | True -> Format.fprintf ff "true"
   | False -> Format.fprintf ff "false"
 
-let to_string_e pp_sym e =
+let to_string_e str_sym e =
   let b = Buffer.create 80 in
   let ff = Format.formatter_of_buffer b in
-  pp_e pp_sym ff e;
+  pp_e (fun ff s -> Format.pp_print_string ff (str_sym s)) ff e;
   Format.pp_print_flush ff ();
   Buffer.contents b
 
-let to_string pp_sym t =
+let to_string str_sym t =
   let b = Buffer.create 80 in
   let ff = Format.formatter_of_buffer b in
-  pp pp_sym ff t;
+  pp (fun ff s -> Format.pp_print_string ff (str_sym s)) ff t;
   Format.pp_print_flush ff ();
   Buffer.contents b
 

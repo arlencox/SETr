@@ -1,3 +1,5 @@
+let log_smt = false
+
 module L = SETr_Symbolic_Logic
 module Rename = SETr_Rename
 
@@ -14,7 +16,11 @@ type ctx = {
 
 let init () =
   let c = Z3.mk_context [] in
-  let s = Z3.Solver.mk_simple_solver c in
+  (*let s = Z3.Solver.mk_simple_solver c in*)
+  (*let qe = Z3.Tactic.mk_tactic c "qe" in*)
+  let bv = Z3.Tactic.mk_tactic c "bv" in
+  (*let tactic = Z3.Tactic.and_then c qe bv [] in*)
+  let s = Z3.Solver.mk_solver_t c bv in
   {
     counter = ref 0;
     c;
@@ -165,13 +171,25 @@ let constrain ctx cnstr t =
     syms = !map;
   }
 
+let count = ref 0
+
 let is_valid ctx e =
   let e = Z3.Boolean.mk_not ctx.c e in
   (*Format.printf "Valid? %s@." (Z3.Expr.to_string (Z3.Expr.simplify e None));*)
   (*let s = Z3.Solver.mk_simple_solver ctx.c in*)
   let id = fresh_count ctx in
   let v = get_variable ctx id in
-  Z3.Solver.add ctx.s [Z3.Boolean.mk_eq ctx.c v e];
+  let asrt = Z3.Boolean.mk_eq ctx.c v e in
+  Z3.Solver.add ctx.s [asrt];
+  if log_smt then begin
+    let str = Z3.SMT.benchmark_to_smtstring ctx.c "a" "b" "c" "d" [] (Z3.Boolean.mk_and ctx.c [asrt; v]) in
+  (*Z3.Params.set_print_mode ctx.c Z3enums.PRINT_SMTLIB2_COMPLIANT;
+  let str = Z3.Solver.to_string ctx.s in*)
+    let fout = open_out (Printf.sprintf "test_%d.smt2" !count) in
+    incr count;
+    output_string fout str;
+    close_out fout
+  end;
   match Z3.Solver.check ctx.s [v] with
   | Z3.Solver.UNSATISFIABLE -> true
   | Z3.Solver.SATISFIABLE -> false

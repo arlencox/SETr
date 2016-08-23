@@ -8,7 +8,7 @@ type t =
 exception Build_error of string
 
 let build_domain name args =
-  match String.lowercase name, args with
+  match name, args with
 
 (************************************************)
 (**             Abstract Domains               **)

@@ -35,7 +35,7 @@ module Color = struct
     if c = "none" then
       None
     else
-      let (bright, c) = match String.lowercase c with
+      let (bright, c) = match c with
         | "black" ->    (false, Black)
         | "black!" ->   (true,  Black)
         | "red" ->      (false, Red)
