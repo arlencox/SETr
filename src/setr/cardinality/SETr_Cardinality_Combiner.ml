@@ -156,8 +156,8 @@ module Make(S: SETr_Symbolic_Interface.S)(N: SETr_Numeric_Interface.S) : SETr_Ca
       (SL.False, NL.False)
 
 
-  let sat ctx t c =
-    failwith "unimplemented"
+  let is_bottom ctx t =
+    S.is_bottom ctx.cs t.s || N.is_bottom ctx.cn t.n
 
 
   let constrain ctx c t =
@@ -167,6 +167,9 @@ module Make(S: SETr_Symbolic_Interface.S)(N: SETr_Numeric_Interface.S) : SETr_Ca
       s = S.constrain ctx.cs s t.s;
       n = N.constrain ctx.cn n t.n;
     }
+
+  let sat ctx t c =
+    is_bottom ctx (constrain ctx (L.Not c) t)
 
 
   let join ctx a b =
@@ -190,8 +193,6 @@ module Make(S: SETr_Symbolic_Interface.S)(N: SETr_Numeric_Interface.S) : SETr_Ca
   let le ctx a b =
     S.le ctx.cs a.s b.s && N.le ctx.cn a.n b.n
 
-  let is_bottom ctx t =
-    S.is_bottom ctx.cs t.s || N.is_bottom ctx.cn t.n
 
   let is_top ctx t =
     S.is_top ctx.cs t.s && N.is_top ctx.cn t.n
@@ -236,7 +237,54 @@ module Make(S: SETr_Symbolic_Interface.S)(N: SETr_Numeric_Interface.S) : SETr_Ca
       (S.pp_print ctx.cs pp_sym) t.s
       (N.pp_print ctx.cn pp_sym) t.n
 
+let rec of_symbolic_e = function
+  | SL.Empty -> L.Empty
+  | SL.Universe -> L.Universe
+  | SL.DisjUnion (a, b) -> L.DisjUnion (of_symbolic_e a, of_symbolic_e b)
+  | SL.Union (a, b) -> L.Union (of_symbolic_e a, of_symbolic_e b)
+  | SL.Inter (a, b) -> L.Inter (of_symbolic_e a, of_symbolic_e b)
+  | SL.Diff (a, b) -> L.Diff (of_symbolic_e a, of_symbolic_e b)
+  | SL.Comp a -> L.Comp (of_symbolic_e a)
+  | SL.Var s -> L.Var s
+
+let rec of_symbolic_t = function
+  | SL.Eq (a, b) -> L.Eq (of_symbolic_e a, of_symbolic_e b)
+  | SL.SubEq (a, b) -> L.SubEq (of_symbolic_e a, of_symbolic_e b)
+  | SL.And (a, b) -> L.And (of_symbolic_t a, of_symbolic_t b)
+  | SL.Not a -> L.Not (of_symbolic_t a)
+  | SL.True -> L.True
+  | SL.False -> L.False
+
+module NL = SETr_Numeric_Logic
+
+let rec of_numeric_e ss = function
+  | NL.Add (a, b) -> L.Add (of_numeric_e ss a, of_numeric_e ss b)
+  | NL.Mul (a, b) -> L.Mul (of_numeric_e ss a, of_numeric_e ss b)
+  | NL.Neg a -> L.Neg (of_numeric_e ss a)
+  | NL.Const i -> L.Const i
+  | NL.Var s ->
+    if ISet.mem s ss then
+      L.Card (L.Var s)
+    else
+      L.NVar s
+
+let rec of_numeric_t ss = function
+  | NL.Eq (a, b) -> L.NEq (of_numeric_e ss a, of_numeric_e ss b)
+  | NL.Le (a, b) -> L.NLe (of_numeric_e ss a, of_numeric_e ss b)
+  | NL.Lt (a, b) -> L.NLt (of_numeric_e ss a, of_numeric_e ss b)
+  | NL.And (a, b) -> L.And (of_numeric_t ss a, of_numeric_t ss b)
+  | NL.Not a -> L.Not (of_numeric_t ss a)
+  | NL.True -> L.True
+  | NL.False -> L.False
+
   let serialize ctx t =
-    failwith "unimplemented"
+    let ls = S.serialize ctx.cs t.s in
+    let ls = of_symbolic_t ls in
+    let set_syms = S.symbols ctx.cs t.s |> set_of_list in
+    let ln = N.serialize ctx.cn t.n in
+    let ln = of_numeric_t set_syms ln in
+    match ls, ln with
+    | L.True, o | o, L.True -> o
+    | ls, ln -> L.And(ls,ln)
 
 end
