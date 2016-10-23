@@ -5,6 +5,18 @@ type 'sym e =
   | Mul of 'sym e * 'sym e
   | Var of 'sym
 
+type uop =
+  | UNeg
+
+type bop =
+  | BAdd
+  | BMul
+
+type cop =
+  | CEq
+  | CLe
+  | CLt
+
 type 'sym t =
   | Eq of 'sym e * 'sym e
   | Le of 'sym e * 'sym e
@@ -17,6 +29,7 @@ type 'sym t =
 type 'sym q = {
   get_eqs: unit -> ('sym * 'sym) list;
   get_eqs_sym: 'sym -> 'sym list;
+  get_zeros: unit -> 'sym list;
 }
 
 let prec_e = function

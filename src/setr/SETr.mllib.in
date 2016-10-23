@@ -40,7 +40,8 @@ cardinality/SETr_Cardinality_Interface
 cardinality/SETr_Cardinality_Combiner
 numeric/SETr_Numeric_Interface
 numeric/SETr_Numeric_Logic
-numeric/SETr_Numeric_Interval.ml
+numeric/SETr_Numeric_Interval
+numeric/SETr_Numeric_Nonrelational
 ds/SETr_DS
 ds/SETr_DS_CNF
 ds/SETr_DS_Dequeue

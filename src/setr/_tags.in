@@ -1,4 +1,5 @@
 <symbolic/SETr_Symbolic_Stats.*>: package(unix)
+<numeric/SETr_Numeric_Interval.*>: package(zarith)
 
 #ifdef PKG_CUDD
 <symbolic/SETr_Symbolic_BDD_Cudd.*> : package(cudd)

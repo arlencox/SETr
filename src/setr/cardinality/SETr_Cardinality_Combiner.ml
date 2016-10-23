@@ -70,6 +70,8 @@ module Make(S: SETr_Symbolic_Interface.S)(N: SETr_Numeric_Interface.S) : SETr_Ca
       NL.Var a
     | L.Card _ ->
       raise Unsupported
+    | L.NVar s ->
+      NL.Var s
 
   let rec card_set_expr_to_set_expr a =
     match a with
@@ -210,10 +212,14 @@ module Make(S: SETr_Symbolic_Interface.S)(N: SETr_Numeric_Interface.S) : SETr_Ca
     let s_query = S.query ctx.cs t.s in
     {
       L.get_eqs = (fun () ->
-          s_query.SETr_Symbolic_Logic.get_eqs ()
+          s_query.SL.get_eqs ()
         );
       L.get_eqs_sym = (fun sym ->
-          s_query.SETr_Symbolic_Logic.get_eqs_sym sym
+          s_query.SL.get_eqs_sym sym
+        );
+      L.get_zeros = (fun () ->
+          let n_query = N.query ctx.cn t.n in
+          n_query.NL.get_zeros ()
         );
     }
 

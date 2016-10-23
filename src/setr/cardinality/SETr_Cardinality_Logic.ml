@@ -15,6 +15,7 @@ type 'sym n =
   | Const of int
   | Mul of 'sym n * 'sym n
   | Card of 'sym e
+  | NVar of 'sym
 
 type 'sym t =
   | Eq of 'sym e * 'sym e
@@ -30,6 +31,7 @@ type 'sym t =
 type 'sym q = {
   get_eqs: unit -> ('sym * 'sym) list;
   get_eqs_sym: 'sym -> 'sym list;
+  get_zeros: unit -> 'sym list;
   (*get_representative: 'sym -> 'sym;*)
 }
 
@@ -90,6 +92,7 @@ let prec_n = function
   | Const _ -> 10
   | Mul _ -> 2
   | Card _ -> 10
+  | NVar _ -> 10
 
 let rec pp_noparen_n ?parse:(parse=false) pp_sym ff t =
   let ppn = pp_n ~parse:parse ~prec:(prec_n t) pp_sym in
@@ -100,6 +103,7 @@ let rec pp_noparen_n ?parse:(parse=false) pp_sym ff t =
   | Const i -> Format.fprintf ff "%d" i
   | Mul(a,b) -> Format.fprintf ff "%a*%a" ppn a ppn b
   | Card e -> Format.fprintf ff "|%a|" ppe e
+  | NVar s -> Format.fprintf ff "%a" pp_sym s
 and pp_n ?parse:(parse=false) ?prec:(p=0) pp_sym ff t =
   if prec_n t < p then
     Format.fprintf ff "@[<hv 2>(%a)@]" (pp_noparen_n ~parse:parse pp_sym) t
