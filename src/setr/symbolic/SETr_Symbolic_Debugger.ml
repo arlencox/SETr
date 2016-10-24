@@ -56,3 +56,14 @@ module Make(D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S = struct
 
 
 end
+
+let _ =
+  let open SETr_DomainRegistrar in
+  let build = function
+    | [Symbolic d] ->
+        Symbolic (module Make((val d)))
+    | _ -> build_error "Debug takes a symbolic domain as an argument"
+  in
+  let args = "(<sym>)" in
+  let help = "Builds a debug printing symbolic domain from a symbolic domain" in
+  register "symbolic.debug" build args help

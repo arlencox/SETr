@@ -154,3 +154,17 @@ module Make(D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S = struct
   let pp_debug ctx pp_sym ff t =
     pp_print ctx pp_sym ff t
 end
+
+
+
+let _ =
+  let open SETr_DomainRegistrar in
+  let build = function
+    | [Symbolic s] ->
+        Symbolic (module Make((val s)))
+    | _ -> build_error "Expected a symbolic domain"
+  in
+  let args = "(<sym>)" in
+  let help = "Builds a statics-gathering symbolic domain from a symbolic domain <sym>" in
+  register "symbolic.stats" build args help;
+  alias "stats" "symbolic.stats"

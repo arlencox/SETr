@@ -1,4 +1,4 @@
-<*> or <sdsl/*> or <strace/*>: use_SETr, package(unix), package(str)
+<*> or <sdsl/*> or <strace/*>: use_SETr, package(unix), package(str), package(zarith)
 #ifdef PKG_CUDD
 <*> or <sdsl/*> or <strace/*>: package(cudd)
 #endif

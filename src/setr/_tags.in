@@ -1,5 +1,5 @@
 <symbolic/SETr_Symbolic_Stats.*>: package(unix)
-<numeric/SETr_Numeric_Interval.*>: package(zarith)
+<numeric/value/SETr_Numeric_Value_Interval.*>: package(zarith)
 
 #ifdef PKG_CUDD
 <symbolic/SETr_Symbolic_BDD_Cudd.*> : package(cudd)
@@ -22,6 +22,7 @@
 "symsing" : include
 "cardinality" : include
 "numeric" : include
+"numeric/value" : include
 "." : include
 
 <SETr_js.*> : package(js_of_ocaml), package(js_of_ocaml.ppx), package(unix)

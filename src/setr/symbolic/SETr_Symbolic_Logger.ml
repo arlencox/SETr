@@ -166,3 +166,23 @@ module Make(L: L)(D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S
 
 
 end
+
+let _ =
+  let open SETr_DomainRegistrar in
+  let build args =
+    let fname, d = match args with
+      | [String fname; Symbolic d] -> (fname, d)
+      | [Symbolic d] -> ("domain.log", d)
+      | _ -> build_error "logger takes an optional file name and a set domain as arguments"
+    in
+    let module L = (struct
+      let file = fname
+    end) in
+    let module D = (val d) in
+    let module Log = Make(L)(D) in
+    Symbolic (module Log)
+  in
+  let args = "([fname], <sym>)" in
+  let help = "Builds an logging symbolic domain (to file fname default domain.log) from a symbolic domain" in
+  register "symbolic.logger" build args help;
+  alias "logger" "symbolic.logger"

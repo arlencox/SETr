@@ -1,15 +1,6 @@
 module L = SETr_Numeric_Logic
-module type VALUE = sig
-  include SETr_Interface.Value
-    with type cnst = int
-     and type uop = L.uop
-     and type bop = L.bop
-     and type cop = L.cop
-     and type output = int L.t
-     and type sexp = int L.e
-end
 
-module Make(V: VALUE) : SETr_Numeric_Interface.S =
+module Make(V: SETr_Numeric_Value_Interface.S) : SETr_Numeric_Interface.S =
 struct
   module SMap = Map.Make(struct
       type t = int

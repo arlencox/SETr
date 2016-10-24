@@ -4,7 +4,7 @@
 %token <string> STRING
 
 %start construct
-%type <SETr_DomainBuilder.t> construct
+%type <SETr_DomainRegistrar.t> construct
 
 %%
 
@@ -29,8 +29,8 @@ args
 
 arg
   : domain { $1 }
-  | TRUE { SETr_DomainBuilder.Bool true }
-  | FALSE { SETr_DomainBuilder.Bool false }
-  | STRING { SETr_DomainBuilder.String $1 }
-  | INT { SETr_DomainBuilder.Int (int_of_string $1) }
+  | TRUE { SETr_DomainRegistrar.Bool true }
+  | FALSE { SETr_DomainRegistrar.Bool false }
+  | STRING { SETr_DomainRegistrar.String $1 }
+  | INT { SETr_DomainRegistrar.Int (int_of_string $1) }
   ;

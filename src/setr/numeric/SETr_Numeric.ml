@@ -1,3 +1,4 @@
 module Logic = SETr_Numeric_Logic
 module Interface = SETr_Numeric_Interface
-module Interval = SETr_Numeric_Interval
+module Nonrelational = SETr_Numeric_Nonrelational
+module Value = SETr_Numeric_Value

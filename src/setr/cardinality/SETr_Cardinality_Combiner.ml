@@ -288,3 +288,16 @@ let rec of_numeric_t ss = function
     | ls, ln -> L.And(ls,ln)
 
 end
+
+
+let _ =
+  let open SETr_DomainRegistrar in
+  let build = function
+    | [Symbolic s; Numeric n] ->
+        Cardinality (module Make((val s))((val n)))
+    | _ -> build_error "Expected a symbolic domain and a numeric domain"
+  in
+  let args = "(<sym>,<num>)" in
+  let help = "Builds a cardinality domain from a symbolic domain <sym> and a numeric domain <num>" in
+  register "cardinality.combiner" build args help
+  

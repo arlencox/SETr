@@ -337,3 +337,14 @@ module Make(D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S = struct
     D.pp_print ctx pp_sym ff t.d
 end
 
+
+let _ =
+  let open SETr_DomainRegistrar in
+  let build = function
+    | [Symbolic d] ->
+        Symbolic (module Make((val d)))
+    | _ -> build_error "Eq takes a symbolic domain as an argument"
+  in
+  let args = "(<sym>)" in
+  let help = "Builds an equality-tracking symbolic domain from a symbolic domain" in
+  register "symbolic.eq" build args help

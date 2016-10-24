@@ -948,3 +948,4 @@ let query () (x: t): query =
 let combine () (q: query) (x: t) =
   List.fold_left (fun x (s0, s1) -> constrain () (L.Eq (L.Var s0, L.Var s1)) x)
     x (q.L.get_eqs ( ))
+

@@ -2,8 +2,8 @@ let arg_blank = ("", Arg.Unit (fun () -> ()), " ")
 
 
 let usage =
-  "Usage: sdsl [options] [file]\n" ^
-  SETr.help
+  "Usage: sdsl [options] [file]\n"
+  
 
 type ft =
   | FT_SDSL
@@ -28,7 +28,7 @@ let run () =
   let dom_str = ref "lin" in
   (* assemble command line arguments *)
   let args = 
-    ["-dom", Arg.Set_string dom_str, "<cfg> Configure domain according to cfg"] @
+    ["-dom", Arg.Set_string dom_str, "<cfg> Configure domain according to cfg (use help to show options)"] @
     [arg_blank] @
     SDSL.Interp.args @
     [arg_blank]

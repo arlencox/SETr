@@ -232,3 +232,14 @@ module Make(D: SETr_Symbolic_Interface.S) : SETr_SymSing_Interface.S = struct
 
 
 end
+
+let _ =
+  let open SETr_DomainRegistrar in
+  let build = function
+    | [Symbolic s] ->
+        SymSing (module Make((val s)))
+    | _ -> build_error "Expected a symbolic domain"
+  in
+  let args = "(<sym>)" in
+  let help = "Builds a symbolic with singletons domain from a symbolic domain <sym>" in
+  register "symsing.sing" build args help

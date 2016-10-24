@@ -27,7 +27,7 @@ $(TARGETS) : _tags SETr.mllib META
 
 clean:
 	ocamlbuild -clean
-	rm -rf $(TARGET)
+	rm -rf $(TARGET) _tags SETr.mllib META
 
 install: META
 	ocamlfind install setr META $(addprefix _build/, SETr.cma SETr.cmxa SETr.a SETr.cmi)

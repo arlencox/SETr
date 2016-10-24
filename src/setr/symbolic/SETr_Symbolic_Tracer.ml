@@ -139,3 +139,28 @@ module Make(L: L)(D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S = st
 
 
 end
+
+
+let _ =
+  let open SETr_DomainRegistrar in
+  let build args =
+    let default_name = "trace.strace" in
+    let default_check = false in
+    let c, s, d = match args with
+      | [Bool c; String s; Symbolic d] -> (c, s, d)
+      | [String s; Symbolic d] -> (default_check, s, d)
+      | [Bool c; Symbolic d] -> (c, default_name, d)
+      | [Symbolic d] -> (default_check, default_name, d)
+      | _ ->
+        build_error "trace takes an optional boolean, an optional file name, and a set domain"
+    in
+    let module L = (struct
+      let file = s
+      let check = c
+    end) in
+    Symbolic (module Make(L)((val d)))
+  in
+  let args = "([t/f], [fname], <sym>)" in
+  let help = "Builds an tracing symbolic domain that if the first argument is true adds checks to the trace. The trace file is generated to fname (default trace.strace" in
+  register "symbolic.trace" build args help;
+  alias "trace" "symbolic.trace"

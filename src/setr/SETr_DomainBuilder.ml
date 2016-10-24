@@ -1,13 +1,50 @@
-type t =
-  | Bool of bool
-  | String of string
-  | Int of int
-  | Symbolic of (module SETr_Symbolic_Interface.S)
-  | SymSing of (module SETr_SymSing_Interface.S)
-
-exception Build_error of string
-
 let build_domain name args =
+  let (build, help, _) = Hashtbl.find SETr_DomainRegistrar.registered name in
+  build args
+
+let max_width = 80
+let help_indent = 8
+
+let print_help ff () =
+  Format.pp_open_vbox ff 2;
+  Format.fprintf ff "  Domains can be constructed with the following commands:@,@,";
+  let commands = Hashtbl.fold (fun k (_,_,help) l ->
+      if help then k::l else l
+    ) SETr_DomainRegistrar.registered [] in
+  let commands = List.sort compare commands in
+
+  List.iter (fun name ->
+      let (_, (args, help), _) = Hashtbl.find SETr_DomainRegistrar.registered name in
+      Format.pp_open_vbox ff help_indent;
+      Format.fprintf ff "%s %s:@,@[<hov 0>" name args;
+      String.iter (function
+          | ' ' -> Format.pp_print_space ff ()
+          | '\n' -> Format.pp_print_space ff ()
+          | '\r' -> ()
+          | '\t' -> Format.fprintf ff "    "
+          | c -> Format.pp_print_char ff c
+        ) help;
+      Format.pp_close_box ff ();
+      Format.pp_close_box ff ();
+      Format.pp_print_cut ff ()
+    ) commands;
+  Format.pp_close_box ff ();
+  Format.pp_print_flush ff ()
+
+let get_help () =
+  let ff = Format.std_formatter in
+  print_help ff ();
+  Format.pp_print_newline ff ();
+  exit 2
+
+let help_string =
+  let b = Buffer.create 1024 in
+  let ff = Format.formatter_of_buffer b in
+  print_help ff ();
+  Buffer.contents b
+
+
+(*let build_domain name args =
   match name, args with
 
 (************************************************)
@@ -100,7 +137,6 @@ let build_domain name args =
   | "qbf", _ ->
     raise (Build_error "QBF-based domain was disabled at compile time")
 #endif
-
 
 (************************************************)
 (**            Domain Combinators              **)
@@ -209,4 +245,4 @@ let help_string =
 
 let get_help () =
   Format.printf "%s@." help_string;
-  exit 2
+  exit 2 *)

@@ -169,3 +169,16 @@ module Make(D: SETr_Symbolic_Interface.S) : SETr_Symbolic_Interface.S = struct
       ) !ss
 
 end
+
+
+let _ =
+  let open SETr_DomainRegistrar in
+  let build = function
+    | [Symbolic s] ->
+        Symbolic (module Make((val s)))
+    | _ -> build_error "Expected a symbolic domain"
+  in
+  let args = "(<sym>)" in
+  let help = "Builds a symbolic domain from a symbolic domain <sym> but remaps all symbols to their lowest ranges" in
+  register "symbolic.remap" build args help;
+  alias "remap" "symbolic.remap"
