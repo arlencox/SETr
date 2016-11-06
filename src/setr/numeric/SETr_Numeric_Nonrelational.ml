@@ -227,3 +227,15 @@ struct
 
   let pp_print = pp_debug
 end
+
+
+let _ =
+  let open SETr_DomainRegistrar in
+  let build = function
+    | [NumericValue s] ->
+        Numeric (module Make((val s)))
+    | _ -> build_error "Expected a value domain"
+  in
+  let args = "(<val>)" in
+  let help = "Builds a non-relational numeric domain from a value domain <val>" in
+  register "numeric.nonrelational" build args help
