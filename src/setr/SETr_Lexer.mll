@@ -18,7 +18,7 @@ rule token = parse
   | "help" { HELP }
   | "true" { TRUE }
   | "false" { FALSE }
-  | ['a'-'z' 'A'-'Z' '_']['a'-'z' 'A'-'Z' '_' '-' '0'-'9']* as i { IDENT i }
+  | ['a'-'z' 'A'-'Z' '_' '.']['a'-'z' 'A'-'Z' '_' '-' '0'-'9' '.']* as i { IDENT i }
   | ("-"? ['0'-'9']+) as i { INT i }
   | "'" { tok_string (Buffer.create 80) lexbuf }
   | "//" { comment lexbuf }                                                        

@@ -19,6 +19,7 @@ domain
 
 arg_list
   :  { [] }
+  | LB RB { [] }
   | LB args RB { $2 }
   ;
 
