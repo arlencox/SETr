@@ -15,6 +15,7 @@ rule token = parse
   | "\n" { incr_linenum lexbuf; token lexbuf }
   | "(" { LB }
   | ")" { RB }
+  | "," { COMMA }
   | "help" { HELP }
   | "true" { TRUE }
   | "false" { FALSE }

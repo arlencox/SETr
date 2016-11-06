@@ -1,4 +1,4 @@
-%token LB RB EOF TRUE FALSE HELP
+%token LB RB EOF TRUE FALSE HELP COMMA
 %token <string> IDENT
 %token <string> INT
 %token <string> STRING
@@ -26,6 +26,7 @@ arg_list
 args
   : arg      { [$1] }
   | arg args { $1::$2 }
+  | arg COMMA args { $1::$3 }
   ;
 
 arg
