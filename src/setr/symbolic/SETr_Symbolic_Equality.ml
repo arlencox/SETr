@@ -347,4 +347,5 @@ let _ =
   in
   let args = "(<sym>)" in
   let help = "Builds an equality-tracking symbolic domain from a symbolic domain" in
-  register "symbolic.eq" build args help
+  register "symbolic.eq" build args help;
+  alias "eq" "symbolic.eq"

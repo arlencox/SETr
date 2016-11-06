@@ -242,4 +242,5 @@ let _ =
   in
   let args = "(<sym>)" in
   let help = "Builds a symbolic with singletons domain from a symbolic domain <sym>" in
-  register "symsing.sing" build args help
+  register "symsing.sing" build args help;
+  alias "sing" "symsing.sing"

@@ -13,15 +13,15 @@ exception Build_error of string
 let build_error msg =
   raise (Build_error msg)
 
-let registered : (string, (t list -> t) * (string * string) * bool) Hashtbl.t
+let registered : (string, (t list -> t) * (string * string) * string option) Hashtbl.t
   = Hashtbl.create 29
 
 let register name build args help =
-  Hashtbl.replace registered name (build,(args,help), true)
+  Hashtbl.replace registered name (build,(args,help), None)
 
 let alias newname oldname =
   let (build, help, print) = Hashtbl.find registered oldname in
-  Hashtbl.replace registered newname (build, help, false)
+  Hashtbl.replace registered newname (build, help, (Some oldname))
 
 let is_registered name =
   Hashtbl.mem registered name

@@ -13,4 +13,5 @@ let _ =
   in
   let args = "" in
   let help = "Builds a symbolic with singletons domain from that uses a syntactic tracking of linear disjoint union constraints" in
-  register "symsing.lin" build args help
+  register "symsing.lin" build args help;
+  alias "lin" "symsing.lin"

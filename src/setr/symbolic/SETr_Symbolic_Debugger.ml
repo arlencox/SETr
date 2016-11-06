@@ -66,4 +66,5 @@ let _ =
   in
   let args = "(<sym>)" in
   let help = "Builds a debug printing symbolic domain from a symbolic domain" in
-  register "symbolic.debug" build args help
+  register "symbolic.debug" build args help;
+  alias "debug" "symbolic.debug"

@@ -8,15 +8,30 @@ let help_indent = 8
 let print_help ff () =
   Format.pp_open_vbox ff 2;
   Format.fprintf ff "  Domains can be constructed with the following commands:@,@,";
-  let commands = Hashtbl.fold (fun k (_,_,help) l ->
-      if help then k::l else l
+  let alias_table = Hashtbl.create 29 in
+  let commands = Hashtbl.fold (fun name (_,_,help) l ->
+      match help with
+      | Some orig_name ->
+        let upd = name::(try
+            Hashtbl.find alias_table orig_name
+          with Not_found -> []) in
+        Hashtbl.replace alias_table orig_name upd;
+        l
+      | None ->
+        name::l
     ) SETr_DomainRegistrar.registered [] in
   let commands = List.sort compare commands in
 
   List.iter (fun name ->
       let (_, (args, help), _) = Hashtbl.find SETr_DomainRegistrar.registered name in
       Format.pp_open_vbox ff help_indent;
-      Format.fprintf ff "%s %s:@,@[<hov 0>" name args;
+      let aliases = try
+          Hashtbl.find alias_table name |>
+          List.sort compare |>
+          String.concat " " |>
+          (^) " - aliases: "
+        with Not_found -> "" in
+      Format.fprintf ff "%s%s%s@,@[<hov 0>" name args aliases;
       String.iter (function
           | ' ' -> Format.pp_print_space ff ()
           | '\n' -> Format.pp_print_space ff ()

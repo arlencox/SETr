@@ -10,7 +10,8 @@ let _ =
   in
   let args = "" in
   let help = "Builds a symbolic domain from CU Decision Diagrams library" in
-  register "symbolic.bdd.cudd" build args help
+  register "symbolic.bdd.cudd" build args help;
+  alias "bdd-cudd" "symbolic.bdd.cudd"
 
 #endif
 #ifdef PKG_MLBDD
@@ -25,7 +26,8 @@ let _ =
   in
   let args = "" in
   let help = "Builds a symbolic domain from ML Binary Decision Diagrams library" in
-  register "symbolic.bdd.mlbdd" build args help
+  register "symbolic.bdd.mlbdd" build args help;
+  alias "bdd-mlbdd" "symbolic.bdd.mlbdd"
 
 #endif
 module XBDD = SETr_Symbolic_BDD_XBDD
@@ -39,7 +41,8 @@ let _ =
   in
   let args = "" in
   let help = "Builds a symbolic domain from Xavier Leroy's Binary Decision Diagram library" in
-  register "symbolic.bdd.xbdd" build args help
+  register "symbolic.bdd.xbdd" build args help;
+  alias "bdd-xbdd" "symbolic.bdd.xbdd"
 
 #ifdef PKG_CUDD
 module Default = Cudd.Make(struct let reorder = None end)
@@ -63,4 +66,5 @@ let _ =
   in
   let args = "" in
   let help = "Builds a symbolic domain using a combinators and a BDD library chosen for performance" in
-  register "symbolic.bdd.opt" build args help
+  register "symbolic.bdd.opt" build args help;
+  alias "bdd-opt" "symbolic.bdd.opt"
