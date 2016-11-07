@@ -179,11 +179,11 @@ let binary () op a b =
   | L.BAdd -> add a b
   | L.BMul -> mul a b
 
-let eq x y =
+let ceq x y =
   let res = meet () x y in
   res, res
 
-let ge (x:t) (y:t) : t * t =
+let cge (x:t) (y:t) : t * t =
   match x, y with
   | Bottom, _ | _, Bottom -> Bottom, Bottom
   | Itv (a, b), Itv (c, d) ->
@@ -194,9 +194,11 @@ let ge (x:t) (y:t) : t * t =
     else
       Itv (a, b), Itv (c, d)
 
-let cle x y = ge y x
+let cle x y = 
+  let (y,x) = cge y x in
+  (x,y)
 
-let gt x y =
+let cgt x y =
   match x, y with
   | Bottom, _ | _, Bottom -> Bottom, Bottom
   | Itv (a, b), Itv (c, d) ->
@@ -207,13 +209,15 @@ let gt x y =
     else
       Itv (a, b), Itv (c, d)
 
-let lt x y = gt y x
+let clt x y =
+  let (y,x) = cgt y x in
+  (x,y)
 
 let compare () op (a:t) (b:t) : t * t =
   match op with
-  | L.CEq -> eq a b
+  | L.CEq -> ceq a b
   | L.CLe -> cle a b
-  | L.CLt -> lt a b
+  | L.CLt -> clt a b
   
 let bwd_unary () op r a =
   match op with
@@ -231,6 +235,8 @@ let bwd_binary () op r a b =
 
 let serialize () s = function
   | Bottom -> L.False
+  | Itv (Int a, Int b) when Z.equal a b ->
+    L.Eq (s, L.Const (Z.to_int a))
   | Itv (a, b) ->
     let r1 = match a with
       | NInf -> None

@@ -45,6 +45,7 @@ numeric/SETr_Numeric_Logic
 numeric/SETr_Numeric_Interval
 numeric/SETr_Numeric_Nonrelational
 numeric/value/SETr_Numeric_Value
+numeric/value/SETr_Numeric_Value_Debug
 numeric/value/SETr_Numeric_Value_Interface
 numeric/value/SETr_Numeric_Value_Interval
 ds/SETr_DS

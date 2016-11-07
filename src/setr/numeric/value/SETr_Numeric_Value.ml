@@ -1,5 +1,6 @@
 module Interface = SETr_Numeric_Value_Interface
 module Interval = SETr_Numeric_Value_Interval
+module Debug = SETr_Numeric_Value_Debug
 
 let _ =
   let open SETr_DomainRegistrar in

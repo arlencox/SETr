@@ -228,54 +228,74 @@ module Make(S: SETr_Symbolic_Interface.S)(N: SETr_Numeric_Interface.S) : SETr_Ca
     t
 
   let pp_debug ctx pp_sym ff t =
+    let set_syms = Hashtbl.create 29 in
+    List.iter (fun s ->
+        Hashtbl.replace set_syms s ()
+      ) (S.symbols ctx.cs t.s);
+    let pp_n_sym ff s =
+      if Hashtbl.mem set_syms s then
+        Format.fprintf ff "|%a|" pp_sym s
+      else
+        Format.fprintf ff "%a" pp_sym s
+    in
     Format.fprintf ff "%a /\\ %a"
       (S.pp_debug ctx.cs pp_sym) t.s
-      (N.pp_debug ctx.cn pp_sym) t.n
+      (N.pp_debug ctx.cn pp_n_sym) t.n
 
   let pp_print ctx pp_sym ff t =
+    let set_syms = Hashtbl.create 29 in
+    List.iter (fun s ->
+        Hashtbl.replace set_syms s ()
+      ) (S.symbols ctx.cs t.s);
+    let pp_n_sym ff s =
+      if Hashtbl.mem set_syms s then
+        Format.fprintf ff "|%a|" pp_sym s
+      else
+        Format.fprintf ff "%a" pp_sym s
+    in
     Format.fprintf ff "%a /\\ %a"
       (S.pp_print ctx.cs pp_sym) t.s
-      (N.pp_print ctx.cn pp_sym) t.n
+      (N.pp_print ctx.cn pp_n_sym) t.n
 
-let rec of_symbolic_e = function
-  | SL.Empty -> L.Empty
-  | SL.Universe -> L.Universe
-  | SL.DisjUnion (a, b) -> L.DisjUnion (of_symbolic_e a, of_symbolic_e b)
-  | SL.Union (a, b) -> L.Union (of_symbolic_e a, of_symbolic_e b)
-  | SL.Inter (a, b) -> L.Inter (of_symbolic_e a, of_symbolic_e b)
-  | SL.Diff (a, b) -> L.Diff (of_symbolic_e a, of_symbolic_e b)
-  | SL.Comp a -> L.Comp (of_symbolic_e a)
-  | SL.Var s -> L.Var s
+  let rec of_symbolic_e = function
+    | SL.Empty -> L.Empty
+    | SL.Universe -> L.Universe
+    | SL.DisjUnion (a, b) -> L.DisjUnion (of_symbolic_e a, of_symbolic_e b)
+    | SL.Union (a, b) -> L.Union (of_symbolic_e a, of_symbolic_e b)
+    | SL.Inter (a, b) -> L.Inter (of_symbolic_e a, of_symbolic_e b)
+    | SL.Diff (a, b) -> L.Diff (of_symbolic_e a, of_symbolic_e b)
+    | SL.Comp a -> L.Comp (of_symbolic_e a)
+    | SL.Var s -> L.Var s
 
-let rec of_symbolic_t = function
-  | SL.Eq (a, b) -> L.Eq (of_symbolic_e a, of_symbolic_e b)
-  | SL.SubEq (a, b) -> L.SubEq (of_symbolic_e a, of_symbolic_e b)
-  | SL.And (a, b) -> L.And (of_symbolic_t a, of_symbolic_t b)
-  | SL.Not a -> L.Not (of_symbolic_t a)
-  | SL.True -> L.True
-  | SL.False -> L.False
+  let rec of_symbolic_t = function
+    | SL.Eq (a, b) -> L.Eq (of_symbolic_e a, of_symbolic_e b)
+    | SL.SubEq (a, b) -> L.SubEq (of_symbolic_e a, of_symbolic_e b)
+    | SL.And (a, b) -> L.And (of_symbolic_t a, of_symbolic_t b)
+    | SL.Not a -> L.Not (of_symbolic_t a)
+    | SL.True -> L.True
+    | SL.False -> L.False
 
-module NL = SETr_Numeric_Logic
+  module NL = SETr_Numeric_Logic
 
-let rec of_numeric_e ss = function
-  | NL.Add (a, b) -> L.Add (of_numeric_e ss a, of_numeric_e ss b)
-  | NL.Mul (a, b) -> L.Mul (of_numeric_e ss a, of_numeric_e ss b)
-  | NL.Neg a -> L.Neg (of_numeric_e ss a)
-  | NL.Const i -> L.Const i
-  | NL.Var s ->
-    if ISet.mem s ss then
-      L.Card (L.Var s)
-    else
-      L.NVar s
+  let rec of_numeric_e ss = function
+    | NL.Add (a, b) -> L.Add (of_numeric_e ss a, of_numeric_e ss b)
+    | NL.Mul (a, b) -> L.Mul (of_numeric_e ss a, of_numeric_e ss b)
+    | NL.Neg a -> L.Neg (of_numeric_e ss a)
+    | NL.Const i -> L.Const i
+    | NL.Var s ->
+      if ISet.mem s ss then
+        L.Card (L.Var s)
+      else
+        L.NVar s
 
-let rec of_numeric_t ss = function
-  | NL.Eq (a, b) -> L.NEq (of_numeric_e ss a, of_numeric_e ss b)
-  | NL.Le (a, b) -> L.NLe (of_numeric_e ss a, of_numeric_e ss b)
-  | NL.Lt (a, b) -> L.NLt (of_numeric_e ss a, of_numeric_e ss b)
-  | NL.And (a, b) -> L.And (of_numeric_t ss a, of_numeric_t ss b)
-  | NL.Not a -> L.Not (of_numeric_t ss a)
-  | NL.True -> L.True
-  | NL.False -> L.False
+  let rec of_numeric_t ss = function
+    | NL.Eq (a, b) -> L.NEq (of_numeric_e ss a, of_numeric_e ss b)
+    | NL.Le (a, b) -> L.NLe (of_numeric_e ss a, of_numeric_e ss b)
+    | NL.Lt (a, b) -> L.NLt (of_numeric_e ss a, of_numeric_e ss b)
+    | NL.And (a, b) -> L.And (of_numeric_t ss a, of_numeric_t ss b)
+    | NL.Not a -> L.Not (of_numeric_t ss a)
+    | NL.True -> L.True
+    | NL.False -> L.False
 
   let serialize ctx t =
     let ls = S.serialize ctx.cs t.s in

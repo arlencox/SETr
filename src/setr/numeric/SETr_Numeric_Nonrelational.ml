@@ -186,6 +186,8 @@ struct
         apply_compare c L.CLe b a t
 
   let constrain c cnstr t =
+    (* Format.fprintf Format.err_formatter "%a@."
+      (L.pp (fun ff s -> Format.fprintf ff "v%d" s)) cnstr;*)
     constrain c t true cnstr
 
   let serialize c = function
