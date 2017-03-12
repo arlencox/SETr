@@ -1,0 +1,6 @@
+PKG mlbdd
+PKG cudd
+B _build/src/setr
+B _build/src/main
+S src/setr
+S src/main

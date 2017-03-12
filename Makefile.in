@@ -1,0 +1,34 @@
+TARGETS = src/setr/libsetr.cma src/setr/libsetr.cmxa src/main/setr_test.byte src/main/setr_test.native
+
+BINDIR ?= $(shell opam config var bin)
+
+.PHONY: all clean distclean install uninstall
+
+all:
+	ocamlbuild -use-ocamlfind -plugin-tag 'package(cppo_ocamlbuild)' -no-links $(TARGETS)
+
+clean:
+	ocamlbuild -clean
+
+distclean: clean
+	rm -f Makefile _tags META src/setr/libsetr.mllib
+
+INCLUDED_FILES = \
+  $(wildcard _build/src/setr/*.cmi)\
+ 	$(wildcard _build/src/setr/*.cmo)\
+ 	$(wildcard _build/src/setr/*.cmt)\
+ 	$(wildcard _build/src/setr/*.cmx)\
+ 	$(wildcard _build/src/setr/*.o)\
+ 	$(wildcard _build/src/setr/*.annot)\
+ 	$(wildcard _build/src/setr/*.cma)\
+ 	$(wildcard _build/src/setr/*.cmxa)\
+ 	$(wildcard _build/src/setr/*.a)
+
+install: all
+	ocamlfind install setr META $(INCLUDED_FILES)
+	install -m 0755 _build/src/main/setr_test.native $(BINDIR)/setr
+	install -m 0755 _build/src/main/setr_test.byte $(BINDIR)/setr.debug
+
+uninstall:
+	ocamlfind remove setr
+	rm -f $(BINDIR)/setr $(BINDIR)/setr.debug

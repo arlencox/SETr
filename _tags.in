@@ -1,0 +1,67 @@
+true: annot, bin_annot
+
+"src/setr" : include
+
+<src/setr/SETr_Symbolic_Stats.*>: package(unix)
+<src/setr/SETr_Numeric_Value_Interval.*>: package(zarith)
+
+<src/main/*.ml> or <src/main/sdsl/*.ml> or <src/main/strace/*.ml> or <src/main/setr_test.{byte,native}>: use_libsetr, package(unix), package(str), package(zarith)
+#ifdef PKG_CUDD
+<src/main/*.ml> or <src/main/sdsl/*.ml> or <src/main/strace/*.ml> or <src/main/setr_test.{byte,native}>: package(cudd)
+#endif
+#ifdef PKG_Z3
+<src/main/*.ml> or <src/main/sdsl/*.ml> or <src/main/strace/*.ml> or <src/main/setr_test.{byte,native}>: package(Z3)
+#endif
+#ifdef PKG_MLBDD
+<src/main/*.ml> or <src/main/sdsl/*.ml> or <src/main/strace/*.ml> or <src/main/setr_test.{byte,native}>: package(mlbdd)
+#endif
+<src/main/sdsl/*>: for-pack(SDSL)
+<src/main/strace/*>: for-pack(STrace)
+"src/main": include
+
+
+#ifdef PKG_CUDD
+<src/setr/SETr_Symbolic_BDD_Cudd.*> : package(cudd)
+#endif
+
+#ifdef PKG_MLBDD
+<src/setr/SETr_Symbolic_BDD_MLBDD.*> : package(mlbdd)
+true : package(mlbdd)
+#endif
+
+#ifdef PKG_Z3
+<src/setr/SETr_Symbolic_QUICGLib.*> : package(Z3)
+<src/setr/quicg-lib/*> : for-pack(SETr_Symbolic_QUICGLib)
+<src/setr/quicg-lib/*> : package(Z3)
+<src/setr/SETr_Symbolic_SMT.*> : package(Z3)
+#endif
+
+#if false
+The entries below are hacks to transfer these defines into the general build
+statements.  Note that in order for these to work, they have to be undefined if
+they are defined.  Therefore more uses of PKG_ macros cannot be inserted later.
+#endif
+
+#ifdef PKG_Z3
+#undef PKG_Z3
+#define ARG_Z3 -D PKG_Z3
+#else
+#define ARG_Z3
+#endif
+
+#ifdef PKG_CUDD
+#undef PKG_CUDD
+#define ARG_CUDD -D PKG_CUDD
+#else
+#define ARG_CUDD
+#endif
+
+#ifdef PKG_MLBDD
+#undef PKG_MLBDD
+#define ARG_MLBDD -D PKG_MLBDD
+#else
+#define ARG_MLBDD
+#endif
+
+true: pp(cppo ARG_Z3 ARG_CUDD ARG_MLBDD)
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "Configuring setr library"
+ocaml setup.ml $(opam config var bin)

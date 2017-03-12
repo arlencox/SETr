@@ -5,7 +5,11 @@ let _ =
   let open SETr_DomainRegistrar in
   let build = function
     | [] ->
-        Symbolic (module Cudd)
+      let module Cudd = Cudd.Make(struct let reorder = None end) in
+      Symbolic (module Cudd)
+    | [String s] ->
+      let module Cudd = Cudd.Make(struct let reorder = Some s end) in
+      Symbolic (module Cudd)
     | _ -> build_error "Expected no arguments"
   in
   let args = "" in

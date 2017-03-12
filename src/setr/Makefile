@@ -17,7 +17,6 @@ $(TARGETS) : _tags SETr.mllib META
 	rm SETr.mllib
 	mkdir -p $(TARGET)
 	cp `ls _build/*.cmi` $(TARGET)
-	cp `ls _build/*/*.cmi` $(TARGET)
 	cp _build/SETr.cma _build/SETr.cmxa _build/SETr.a $(TARGET)
 	cp META $(TARGET)
 	rm META

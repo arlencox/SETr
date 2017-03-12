@@ -52,6 +52,7 @@ rule token = parse
   | "false" { FALSE }
   | "not" { NOT }
   | ['a'-'z' 'A'-'Z' '_']['a'-'z' 'A'-'Z' '_' '0'-'9']* as i { IDENT i }
+  (*| ('$' ['0'-'9']+) as i { VAR i }*)
   | ['0'-'9']+ as i { INT (int_of_string i) }
   | "//" { comment lexbuf }                                                        
   | eof { EOF }
