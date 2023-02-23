@@ -323,17 +323,17 @@ module Compare = struct
 
 end
 
-let add x set = Compare.add Pervasives.compare x set
-let mem x set = Compare.mem Pervasives.compare x set
-let remove x set = Compare.remove Pervasives.compare x set
-let union s1 s2 = Compare.union Pervasives.compare s1 s2
-let inter s1 s2 = Compare.inter Pervasives.compare s1 s2
-let diff s1 s2 = Compare.diff Pervasives.compare s1 s2
-let compare s1 s2 = Compare.compare Pervasives.compare s1 s2
-let equal s1 s2 = Compare.equal Pervasives.compare s1 s2
-let subset s1 s2 = Compare.subset Pervasives.compare s1 s2
-let filter f s = Compare.filter Pervasives.compare f s
-let partition f s = Compare.partition Pervasives.compare f s
+let add x set = Compare.add Stdlib.compare x set
+let mem x set = Compare.mem Stdlib.compare x set
+let remove x set = Compare.remove Stdlib.compare x set
+let union s1 s2 = Compare.union Stdlib.compare s1 s2
+let inter s1 s2 = Compare.inter Stdlib.compare s1 s2
+let diff s1 s2 = Compare.diff Stdlib.compare s1 s2
+let compare s1 s2 = Compare.compare Stdlib.compare s1 s2
+let equal s1 s2 = Compare.equal Stdlib.compare s1 s2
+let subset s1 s2 = Compare.subset Stdlib.compare s1 s2
+let filter f s = Compare.filter Stdlib.compare f s
+let partition f s = Compare.partition Stdlib.compare f s
 
 (** Output signature of the functor {!Sette.Make}. *)
 module type S =
