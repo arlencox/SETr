@@ -1,6 +1,6 @@
 #use "topfind"
-#require "findlib"
 #require "str"
+#require "findlib"
 
 
 let mandatory_packages = [
